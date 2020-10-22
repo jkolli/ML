@@ -1,3 +1,8 @@
+#
+# Convolutional neural network for the CIFAR-10 image classification
+# https://www.cs.toronto.edu/~kriz/cifar.html
+#
+
 import pickle
 import numpy as np
 import scipy.stats as stats
@@ -90,7 +95,7 @@ def define_model(vectorize_data):
 def compile_model(model):
     model.compile(
         loss = 'categorical_crossentropy',
-        optimizer = keras.optimizers.Adam(learning_rate=0.0001, beta_1=0.8),
+        optimizer = keras.optimizers.Adam(learning_rate=0.0005, beta_1=0.8),
         metrics=['accuracy']
     )
     return model
@@ -134,7 +139,7 @@ if __name__ == '__main__':
     # Parameters
     normalize_data = True
     vectorize_data = False
-    ep = 100  # Number of epochs
+    ep = 200  # Number of epochs
     bs = 64  # Batch size
 
     # Start run
