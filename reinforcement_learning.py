@@ -1,3 +1,8 @@
+#
+# Reinforcement learning with OpenAI Gym Taxi-v3
+# https://gym.openai.com/envs/Taxi-v3/
+#
+
 import gym
 import random
 import numpy as np
@@ -81,7 +86,7 @@ def training_episodes(num_of_ep):
             # Run action
             new_state, reward, done, info = env.step(action)
             # print('Step number: {}, current state: {}, action: {}, random step: {}, reward: {}'.format(
-            #     step, state, action, random_step, reward))
+            #     step, state, action, random_step, reward)) # used for debugging
             
             # Update Q-table
             q_table[state, action] = q_table[state, action] + alpha * (reward + gamma * np.max(q_table[new_state, :]) - q_table[state, action])
@@ -143,7 +148,7 @@ def test_episodes(num_of_ep, q_table):
             # Run action
             new_state, reward, done, info = env.step(action)
             # print('Step number: {}, current state: {}, action: {}, reward: {}'.format(
-            #     step, state, action, reward))
+            #     step, state, action, reward)) # used for debugging
 
             # Update the state
             tot_reward += reward
