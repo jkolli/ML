@@ -42,7 +42,7 @@ def import_testing_data(path):
         data_format="channels_last", rescale=1./255)
     test_ds = data_generator.flow_from_directory(
         path, target_size=(28, 28), color_mode="grayscale", 
-        class_mode=None)
+        class_mode=None, shuffle=False)
     return test_ds
 
 
@@ -141,7 +141,6 @@ def output_result_data(pred_labels, filename):
         output_file.write("Id,Category\n") 
         for idx in range(10000): 
             output_file.write(f"{idx:05},{pred_labels[idx]}\n")
-            fp.write(f"{idx:05},{random.randint(1,10)}\n")
 
 
 #
@@ -180,7 +179,7 @@ if __name__ == '__main__':
         time.strftime('%X', time.localtime())))
     print('Run time: {:2.2f} s.'.format(
         train_time))
-    plot_training_result(history)
+    # plot_training_result(history)
     
     # Predict labels
     print('Predicting test labels...')
@@ -193,5 +192,5 @@ if __name__ == '__main__':
 
     # Output result file
     print('Creating result file...')
-    output_result_data(pred_labs, 'submission.csv')
+    output_result_data(pred_labs, 'kaggle_submission.csv')
     print('Results ready.')
