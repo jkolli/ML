@@ -129,11 +129,8 @@ def plot_training_result(history):
     plt.show()
 
 
-# Create result .csv for Kaggle
-def output_result_data(pred_labels, filename):
-    # Create file path
-    file_path = os.path.join('results/', filename)
-
+# Create result .csv for Kaggle submission
+def output_result_data(pred_labels, file_path):
     # Output results
     with open(file_path, "w") as output_file: 
         output_file.write("Id,Category\n") 
@@ -151,6 +148,10 @@ if __name__ == '__main__':
     #####################
     ep = 100  # Number of epochs
     bs = 32  # Batch size
+    train_path = 'data/train/train'
+    test_path = 'data/test'
+    result_path = 'results/'
+    result_file = 'kaggle_submission.csv'
 
     # Start run
     start_time = time.time()
@@ -161,8 +162,8 @@ if __name__ == '__main__':
 
     # Read data files
     print('Importing image files...')
-    train_ds, valid_ds = import_training_data('data/train/train')
-    test_ds = import_testing_data('data/test')
+    train_ds, valid_ds = import_training_data(train_path)
+    test_ds = import_testing_data(test_path)
     print('Image files ready.')
 
     # Define model functions  
@@ -190,5 +191,6 @@ if __name__ == '__main__':
 
     # Output result file
     print('Creating result file...')
-    output_result_data(pred_labs, 'kaggle_submission.csv')
-    print('Results ready.')
+    result_file_path = os.path.join(result_path, result_file)
+    output_result_data(pred_labs, result_file_path)
+    print('Results ready at: {}'.format(result_file_path))
