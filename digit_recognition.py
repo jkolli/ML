@@ -8,8 +8,6 @@ import time
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.image import imread
-from skimage.transform import rescale, resize, downscale_local_mean
-from sklearn.preprocessing import OneHotEncoder
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -104,8 +102,8 @@ def compile_model(model):
 def fit_model(train_ds, valid_ds, model, ep, bs):
     history = model.fit(
         train_ds,
-        batch_size=bs,
-        epochs=ep,
+        batch_size=bs, # from user parameters
+        epochs=ep,  # from user parameters
         validation_data=valid_ds)
     return history
 
@@ -152,7 +150,7 @@ if __name__ == '__main__':
     test_path = 'data/test'
     result_path = 'results/'
     result_file = 'kaggle_submission.csv'
-
+    
     # Start run
     start_time = time.time()
     print('Starting process {}...'.format(
@@ -178,6 +176,7 @@ if __name__ == '__main__':
         time.strftime('%X', time.localtime())))
     print('Run time: {:2.2f} s.'.format(
         train_time))
+    # Used to plot accuracy and loss curves after training
     # plot_training_result(history)
     
     # Predict labels
