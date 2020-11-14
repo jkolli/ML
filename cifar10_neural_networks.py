@@ -5,15 +5,11 @@
 
 import pickle
 import numpy as np
-import scipy.stats as stats
 import matplotlib.pyplot as plt
-from skimage.transform import rescale, resize, downscale_local_mean
 import time
 from sklearn.preprocessing import OneHotEncoder
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import layers
-from tensorflow.keras import models
 from keras.datasets import cifar10
 
 
@@ -42,7 +38,7 @@ def lab_encoder(labels):
 # Define CNN model
 def define_model(vectorize_data):
     # Create model    
-    model = models.Sequential(name='Test model')
+    model = keras.models.Sequential(name='Test model')
 
     # Select input shape base on selection
     if vectorize_data:
@@ -51,43 +47,43 @@ def define_model(vectorize_data):
         model.add(keras.Input(shape = (32, 32, 3)))
     
     # Add layers
-    model.add(layers.Conv2D(64, (3,3), activation="relu",
+    model.add(keras.layers.Conv2D(64, (3,3), activation="relu",
                             kernel_initializer="he_uniform",
                             padding="same"))
-    model.add(layers.BatchNormalization())
-    model.add(layers.Conv2D(64, (3,3), activation="relu",
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Conv2D(64, (3,3), activation="relu",
                             kernel_initializer="he_uniform",
                             padding="same"))
-    model.add(layers.BatchNormalization())
-    model.add(layers.MaxPooling2D(pool_size=(2,2), padding="valid"))
-    model.add(layers.Dropout(0.2))
-    model.add(layers.Conv2D(128, (3,3), activation="relu",
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.MaxPooling2D(pool_size=(2,2), padding="valid"))
+    model.add(keras.layers.Dropout(0.2))
+    model.add(keras.layers.Conv2D(128, (3,3), activation="relu",
                             kernel_initializer="he_uniform",
                             padding="same"))
-    model.add(layers.BatchNormalization())
-    model.add(layers.Conv2D(128, (3,3), activation="relu",
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Conv2D(128, (3,3), activation="relu",
                             kernel_initializer="he_uniform",
                             padding="same"))
-    model.add(layers.BatchNormalization())
-    model.add(layers.MaxPooling2D(pool_size=(2,2), padding="valid"))
-    model.add(layers.Dropout(0.3))
-    model.add(layers.Conv2D(256, (3,3), activation="relu",
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.MaxPooling2D(pool_size=(2,2), padding="valid"))
+    model.add(keras.layers.Dropout(0.3))
+    model.add(keras.layers.Conv2D(256, (3,3), activation="relu",
                             kernel_initializer="he_uniform",
                             padding="same"))
-    model.add(layers.BatchNormalization())
-    model.add(layers.Conv2D(256, (3,3), activation="relu",
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Conv2D(256, (3,3), activation="relu",
                             kernel_initializer="he_uniform",
                             padding="same"))
-    model.add(layers.BatchNormalization())
-    model.add(layers.MaxPooling2D(pool_size=(2,2), padding="valid"))
-    model.add(layers.Dropout(0.4))
-    model.add(layers.Flatten())
-    model.add(layers.Dense(256, activation="relu",
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.MaxPooling2D(pool_size=(2,2), padding="valid"))
+    model.add(keras.layers.Dropout(0.4))
+    model.add(keras.layers.Flatten())
+    model.add(keras.layers.Dense(256, activation="relu",
                             kernel_initializer="he_uniform"))
-    model.add(layers.BatchNormalization())
-    model.add(layers.Dropout(0.5))
-    model.add(layers.Dense(10, activation="softmax"))
-
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Dropout(0.5))
+    model.add(keras.layers.Dense(10, activation="softmax"))
+    
     return model
 
 
@@ -136,7 +132,7 @@ def plot_result(history):
 #
 if __name__ == '__main__':
     
-    # Parameters
+    # User parameters
     normalize_data = True
     vectorize_data = False
     ep = 200  # Number of epochs
