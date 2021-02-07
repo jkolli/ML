@@ -172,10 +172,7 @@ def test_episodes(num_of_ep, q_table):
     return testing_rewards, testing_steps
 
 
-#
-# Main
-#
-if __name__ == '__main__':
+def main():
     # Define environment
     env = gym.make("Taxi-v3")
     print('Starting OpenAI Taxi-v3...')
@@ -213,5 +210,8 @@ if __name__ == '__main__':
         plt.title('Testing steps')
         plt.plot(testing_steps)
         plt.grid(True)
-
         plt.show()
+
+
+if __name__ == '__main__':
+    main()

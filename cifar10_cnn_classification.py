@@ -38,7 +38,7 @@ def lab_encoder(labels):
 # Define CNN model
 def define_model(vectorize_data):
     # Create model    
-    model = keras.models.Sequential(name='CNN model')
+    model = keras.models.Sequential()
 
     # Select input shape base on selection
     if vectorize_data:
@@ -96,7 +96,7 @@ def compile_model(model):
 
 
 # Fit the CNN model
-def fit_model(model, ep, bs, x_test, y_test_hot):
+def fit_model(model, ep, bs, x_train, y_train_hot, x_test, y_test_hot):
     history = model.fit(
         x_train, y_train_hot,
         batch_size=bs,
@@ -125,11 +125,7 @@ def plot_result(history):
     plt.show()
 
 
-#
-# Main
-#
-if __name__ == '__main__':
-    
+def main():
     # User parameters
     normalize_data = True
     vectorize_data = False
@@ -167,7 +163,7 @@ if __name__ == '__main__':
     model = define_model(vectorize_data)
     model.summary()
     model = compile_model(model)
-    history = fit_model(model, ep, bs, x_test, y_test_hot)
+    history = fit_model(model, ep, bs, x_train, y_train_hot, x_test, y_test_hot)
     score = model.evaluate(x_test, y_test_hot, verbose=1)
     
     # Print results
@@ -179,3 +175,7 @@ if __name__ == '__main__':
     print('Run time: {:2.2f} s.'.format(
         test_time))
     plot_result(history)
+
+
+if __name__ == '__main__':
+    main()

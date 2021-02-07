@@ -134,11 +134,7 @@ def output_result_data(pred_labels, file_path):
             output_file.write(f"{idx:05},{pred_labels[idx]}\n")
 
 
-#
-# Main
-#
-if __name__ == '__main__':
-    
+def main():
     #####################
     # USER PARAMETERS   #
     #####################
@@ -191,3 +187,7 @@ if __name__ == '__main__':
     result_file_path = os.path.join(result_path, result_file)
     output_result_data(pred_labs, result_file_path)
     print('Results ready at: {}'.format(result_file_path))
+
+
+if __name__ == '__main__':
+    main()
