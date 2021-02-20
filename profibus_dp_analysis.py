@@ -113,9 +113,9 @@ def separate_frames(telegram):
         raw_frame = telegram[i:i+11]
         new_frame = Frame(
             raw_frame[0], # start bit
-            raw_frame[1:8][::-1], # data bits
-            int(raw_frame[1:8][::-1], 2), # dec form
-            hex(int(raw_frame[1:8][::-1], 2)), # hex form
+            raw_frame[1:9][::-1], # data bits
+            int(raw_frame[1:9][::-1], 2), # dec form
+            hex(int(raw_frame[1:9][::-1], 2)), # hex form
             raw_frame[9], # parity bit
             raw_frame[10] # stop bit
         )
