@@ -20,9 +20,11 @@ class Segment:
 
 # Class to store Profibus frame
 class Frame:
-    def __init__(self, start_bit, data_bits, hex_form, parity_bit, stop_bit):
+    def __init__(
+        self, start_bit, data_bits, dec_form, hex_form, parity_bit, stop_bit):
         self.start_bit = start_bit
         self.data_bits = data_bits
+        self.dec_form = dec_form
         self.hex_form = hex_form
         self.parity_bit = parity_bit
         self.stop_bit = stop_bit
@@ -112,6 +114,7 @@ def separate_frames(telegram):
         new_frame = Frame(
             raw_frame[0], # start bit
             raw_frame[1:8][::-1], # data bits
+            int(raw_frame[1:8][::-1], 2), # dec form
             hex(int(raw_frame[1:8][::-1], 2)), # hex form
             raw_frame[9], # parity bit
             raw_frame[10] # stop bit
@@ -123,12 +126,13 @@ def separate_frames(telegram):
         i += 11 # Next frame
     
     print("\nFrames:")
-    HEADER = ["ST", "Octet", "Hex", "PB", "SP", "Frame status"]
+    HEADER = ["ST", "Octet", "Dec", "Hex", "PB", "SP", "Frame status"]
     data = []
     for frame in frames:
         row = [
             frame.start_bit, 
             frame.data_bits, 
+            frame.dec_form,
             frame.hex_form,
             frame.parity_bit, 
             frame.stop_bit, 
